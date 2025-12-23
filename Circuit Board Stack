@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+#define SIZE 5
+
+class Stack {
+    string stack[SIZE];
+    int top;
+
+public:
+    Stack() {
+        top = -1;
+    }
+
+    void push(string id) {
+        if (top == SIZE - 1) {
+            cout << "Stack Overflow! Cannot add " << id << endl;
+            return;
+        }
+        stack[++top] = id;
+        cout << "Pushed: " << id << endl;
+    }
+
+    void pop() {
+        if (top == -1) {
+            cout << "Stack Underflow! No circuit to remove\n";
+            return;
+        }
+        cout << "Popped Circuit: " << stack[top--] << endl;
+    }
+
+    void display() {
+        if (top == -1) {
+            cout << "Stack is Empty\n";
+            return;
+        }
+
+        cout << "Remaining Circuit Boards:\n";
+        for (int i = top; i >= 0; i--) {
+            cout << stack[i] << endl;
+        }
+    }
+};
+
+int main() {
+    Stack s;
+
+    s.push("CB101");
+    s.push("CB102");
+    s.push("CB103");
+
+    s.pop();        // Last circuit removed
+    s.display();    // Remaining boards
+
+    return 0;
+}
