@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+#define SIZE 5
+
+class PWMStack {
+    int stack[SIZE];
+    int top;
+
+public:
+    PWMStack() {
+        top = -1;
+    }
+
+    void push(int duty) {
+        if (top == SIZE - 1) {
+            cout << "PWM Stack Overflow! Duty cycle " << duty << "% not stored\n";
+            return;
+        }
+        stack[++top] = duty;
+        cout << "Stored PWM Duty Cycle: " << duty << "%\n";
+    }
+
+    void pop() {
+        if (top == -1) {
+            cout << "PWM Stack Underflow! No duty cycle to apply\n";
+            return;
+        }
+        cout << "Applied PWM Duty Cycle: " << stack[top--] << "%\n";
+    }
+};
+
+int main() {
+    PWMStack pwm;
+
+    pwm.push(20);
+    pwm.push(40);
+    pwm.push(60);
+    pwm.push(80);
+    pwm.push(100);
+
+    pwm.push(120);   // Overflow
+
+    cout << "\nReverse PWM Application:\n";
+    pwm.pop();
+    pwm.pop();
+    pwm.pop();
+    pwm.pop();
+    pwm.pop();
+
+    pwm.pop();       // Underflow
+
+    return 0;
+}
